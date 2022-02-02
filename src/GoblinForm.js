@@ -42,7 +42,6 @@ export default function GoblinForm(props) {
           </select>
         </label>
         <button>Add Goblin</button>
-
       </form>  
     </div>
   );
