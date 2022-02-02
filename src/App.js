@@ -52,9 +52,18 @@ function App() {
 
   function handleFilterGoblins(search) {
     // use the filter method to get an array of goblins whose name includes this search argument
-
     // if there is a search argument, set the filtered goblins to the filtered goblins
     // if the search argument is undefined, set the filtered goblins in state to just be the array of all goblins
+
+    if (search) {
+      const tempFilteredGoblins = allGoblins.filter(goblin => 
+        goblin.name.includes(search)
+      );
+  
+      setFilteredGoblins(tempFilteredGoblins);
+      
+    }
+
   }
 
 
@@ -88,10 +97,11 @@ function App() {
         setGoblinFormHP={setGoblinFormHP}
       />
       <GoblinList 
-        goblins={allGoblins}
-          // filteredGoblins.length
-          //   ? filteredGoblins
-          //   : allGoblins
+        goblins={
+          filteredGoblins.length
+            ? filteredGoblins
+            : allGoblins
+        }
           // this takes in an array of goblins. If the filteredGoblins has a length, use that array. Otherwise, use the allGoblins array 
         handleDeleteGoblin={handleDeleteGoblin} // note that the goblin list has access to the ability to delete
       />
