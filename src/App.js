@@ -50,6 +50,15 @@ function App() {
 
     // update the allGoblins array immutably to this new, smaller array
     setAllGoblins([...allGoblins]);
+
+
+    // STRETCH ALSO REMOVE FROM FILTERED
+
+    const index2 = filteredGoblins.findIndex(filteredGoblin => filteredGoblin.id === id);
+
+    filteredGoblins.splice(index2, 1);
+
+    setFilteredGoblins([...filteredGoblins]);
   }
 
 
