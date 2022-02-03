@@ -76,9 +76,6 @@ function App() {
 
   }
 
-  console.log('allGoblins', allGoblins);
-  console.log('filteredGoblins', filteredGoblins);
-
   return (
     <div className="App">
       <div className='current-goblin quarter'>
