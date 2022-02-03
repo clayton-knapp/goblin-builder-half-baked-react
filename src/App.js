@@ -3,6 +3,7 @@ import GoblinForm from './GoblinForm';
 import GoblinList from './GoblinList';
 import Goblin from './Goblin';
 import { useState } from 'react';
+import { useEffect } from 'react/cjs/react.development';
 
 function App() {
   
@@ -17,6 +18,9 @@ function App() {
   const [goblinFormHP, setGoblinFormHP] = useState(1);
   //   goblinFormColor, which is how we track the user input for the current color of the goblin in the form
   const [goblinFormColor, setGoblinFormColor] = useState('lightgreen');
+
+  //super stretch - use effect
+  const [query, setQuery] = useState('');
 
   
   function submitGoblin(e) {
@@ -61,16 +65,17 @@ function App() {
     setFilteredGoblins([...filteredGoblins]);
   }
 
+  //super stretch use effect
+  useEffect(handleFilterGoblins, [query, allGoblins]);
 
-
-  function handleFilterGoblins(search) {
+  function handleFilterGoblins() {
     // use the filter method to get an array of goblins whose name includes this search argument
     // if there is a search argument, set the filtered goblins to the filtered goblins
     // if the search argument is undefined, set the filtered goblins in state to just be the array of all goblins
 
-    if (search) {
+    if (query) {
       const tempFilteredGoblins = allGoblins.filter(goblin => 
-        goblin.name.includes(search)
+        goblin.name.includes(query)
       );
   
       setFilteredGoblins(tempFilteredGoblins);
@@ -101,7 +106,7 @@ function App() {
       <div className='goblin-filter quarter'>
         Filter Goblins
         {/* note that handleFilterGoblins is defined upstairs. This is where the allGoblins array gets filtered */}
-        <input onChange={(e) => handleFilterGoblins(e.target.value)} />
+        <input onChange={(e) => setQuery(e.target.value)} />
       </div>
       <GoblinForm 
         // This component takes in a ton of props! 
