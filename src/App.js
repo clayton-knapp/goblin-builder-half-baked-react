@@ -40,15 +40,19 @@ function App() {
 
   }
 
-  console.log('allGoblins', allGoblins);
 
   function handleDeleteGoblin(id) {
     // find the index of the goblin in allGoblins with this id
+    const index = allGoblins.findIndex(goblin => goblin.id === id);
 
     // use splice to delete the goblin object at this index
+    allGoblins.splice(index, 1);
 
     // update the allGoblins array immutably to this new, smaller array
+    setAllGoblins([...allGoblins]);
   }
+
+
 
   function handleFilterGoblins(search) {
     // use the filter method to get an array of goblins whose name includes this search argument
@@ -62,10 +66,18 @@ function App() {
   
       setFilteredGoblins(tempFilteredGoblins);
       
+    } 
+
+    //when you just delete a letter it doesnt change the filter for some reason, its still has the last thing you typed creating the filtered array, it hasnt deleted the array, so the array still exists and it shows that instead of evaluating to false and showing the all goblins array
+    //hence we need the else here to say if search is false and there is no query make the filtered array all goblins
+    else {
+      setFilteredGoblins([...allGoblins]);
     }
 
   }
 
+  console.log('allGoblins', allGoblins);
+  console.log('filteredGoblins', filteredGoblins);
 
   return (
     <div className="App">
@@ -97,12 +109,12 @@ function App() {
         setGoblinFormHP={setGoblinFormHP}
       />
       <GoblinList 
+        // this takes in an array of goblins. If the filteredGoblins has a length, use that array. Otherwise, use the allGoblins array 
         goblins={
           filteredGoblins.length
             ? filteredGoblins
             : allGoblins
         }
-          // this takes in an array of goblins. If the filteredGoblins has a length, use that array. Otherwise, use the allGoblins array 
         handleDeleteGoblin={handleDeleteGoblin} // note that the goblin list has access to the ability to delete
       />
     </div>
